@@ -42,7 +42,7 @@ function SignUp() {
                         to='/login'
                         className='font-medium text-primary transition-all duration-200 hover:underline'
                     >
-                        Sign In
+                        Login
                     </Link>
                 </p>
                 {
@@ -69,7 +69,7 @@ function SignUp() {
                             {...register('email', {
                                 required: true,
                                 validate: {
-                                    matchPattern: (value) => /^([\w.\-_]+)?\w+@[\w-_]+(\.\w+){1,}$/igm.test(value) || 'Please enter a valid email'
+                                    matchPattern: (value) => /^([\w.\-_]+)?\w+@[\w-_]+(\.\w+){1,}$/igm.test(value) || setError('Please enter a valid email')
                                 }
                             })}
                         />
@@ -80,7 +80,7 @@ function SignUp() {
                             {...register('password', {
                                 required: true,
                                 validate: {
-                                    matchPattern: (value) => /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm.test(value) || 'Password must have atleast one uppercase and number'
+                                    matchPattern: (value) => /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm.test(value) || setError('Password must have atleast one uppercase and number')
                                 }
                             })}
                         />

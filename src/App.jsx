@@ -17,7 +17,7 @@ function App() {
       if (userData) {
         dispatch(login({userData}))
       } else {
-        dispatch(logout(logout()))
+        dispatch(logout())
       }
     })
     .catch((error) => console.log(error))
@@ -29,7 +29,6 @@ function App() {
       <div className='w-full block'>
         <Header/>
         <main>
-          TODO: OUTLET
           <Outlet />
         </main>
         <Footer />
