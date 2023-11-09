@@ -13,9 +13,10 @@ function SignUp() {
     const [error, setError] = useState()
 
     const signUp = async(data) => {
+        console.log(data);
         setError("")
         try {
-            const session = await authService.createAccount(data)
+            const session = await authService.createAccount({...data})
             if (session) {
                 const userData = await authService.getCurrentUser()
                 if (userData) dispatch(storeLogin(userData))
@@ -64,7 +65,7 @@ function SignUp() {
                         />
                         <Input 
                             label='Email: '
-                            placeholder='Enter your nemailame'
+                            placeholder='Enter your email'
                             type='email'
                             {...register('email', {
                                 required: true,
@@ -85,8 +86,9 @@ function SignUp() {
                             })}
                         />
                         <Button
+                            bgColor='bg-primary'
                             type='submit' 
-                            className='w-full'
+                            className='w-full hover:bg-text hover:text-background'
                         >
                             SignUp
                         </Button>

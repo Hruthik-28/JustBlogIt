@@ -1,10 +1,15 @@
 import { useEffect, useState } from 'react'
 import appwriteService from '../appwrite/config'
 import {Container, PostCard} from '../components/index'
+import { useSelector } from 'react-redux'
+import {Button} from '../components/index'
+import { Link } from 'react-router-dom'
 
 function Home() {
     const [posts, setPosts] = useState([])
 
+    const authStatus = useSelector(state => state.status)
+    console.log(authStatus);
     useEffect(() => {
         appwriteService.getPosts().then((posts) => {
             if (posts) {
@@ -13,15 +18,54 @@ function Home() {
         })
     }, [])
 
-    if (posts.length === 0) {
+    if (posts.length === 0 && !authStatus) {
         return (
             <div className='w-full py-8 mt-4 text-center'>
                 <Container>
-                    <div className='flex flex-wrap'>
+                    <div className='min-h-[50vh] flex flex-wrap'>
                         <div className='p-2 w-full'>
-                            <h1 className='text-2xl front-bold hover:text-gray-500'>
-                                Login to read posts
+                            <h1 className='text-2xl font-bold mb-4'>
+                                SignUp / Login to read posts
                             </h1>
+                            <div className='flex flex-col gap-6'>
+                                <Link to='/signup'>
+                                    <Button bgColor='bg-primary'>
+                                    Signup
+                                    </Button>
+                                </Link>
+                                <Link to='/login'>
+                                    <Button bgColor='bg-primary'>
+                                    Login
+                                    </Button>
+                                </Link>
+                            </div>
+                        </div>
+                    </div>
+                </Container>
+            </div>
+        )
+    }
+
+    if (posts.length === 0 && authStatus) {
+        return (
+            <div className='w-full py-8 mt-4 text-center'>
+                <Container>
+                    <div className='min-h-[50vh] flex items-center'>
+                        <div className='p-2 w-full font-extrabold'>
+                            <h1 className='text-5xl my-2'>
+                                No Posts found !!!
+                            </h1>
+                            <h1 className='text-xl my-2 font-medium'>
+                                Be the first One to add one
+                            </h1>
+                            <Link to='/add-post'>
+                                <Button 
+                                textColor='text-black'
+                                bgColor='bg-[#9ED5CB]' 
+                                className='text-2xl front-extrabold hover:bg-green-200 my-2'>
+                                    ADD NOW
+                                </Button>   
+                            </Link>
                         </div>
                     </div>
                 </Container>
@@ -30,12 +74,12 @@ function Home() {
     }
 
     return (
-        <div className='w-full py-8'>
+        <div className='w-full py-8 bg-background'>
             <Container>
-                <div className='flex flex-wrap'>
+                <div className='flex flex-wrap sm:flex-nowrap'>
                     {posts.map((post) => (
-                        <div key={post.$id} className='p-2 w-1/4'>
-                            <PostCard {...post}/>
+                        <div key={post.$id} className='p-2 hover:scale-95 transition-all duration-200'>
+                            <PostCard post={post}/>
                         </div>
                     ))}
                 </div>

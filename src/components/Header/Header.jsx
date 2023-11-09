@@ -36,39 +36,38 @@ function Header() {
     ]
 
     return (
-        <header className='py-3 shadow bg-gray-500'>
-            <Container>
-                <nav className='flex'>
-                    <div className='mr-4'>
-                        <Link>
-                            <Logo width='90px'/>
-                        </Link>
-                    </div>
-                    <ul className='flex ml-auto'>
-                        {
-                            navItems.map((item) =>
-                                item.active ? (
-                                    <li key={item.name}>
-                                        <button
-                                            onClick={() => navigate(item.slug)}
-                                            className='inline-block px-6 py-2 duration-200 hover:bg-blue-100 rounded-full'
-                                        >
-                                            {item.name}
-                                        </button>
-                                    </li>
-                                ) : null
-                            )
-                        }
-                    </ul>
-                    {
-                        authStatus && 
-                        <li>
-                            <LogoutButton />
-                        </li>
-                    }
-                </nav>
-            </Container>
-        </header>
+    <header className="py-3 shadow-lg bg-background sticky top-0 z-10">
+    <Container>
+        <nav className="flex flex-wrap items-center">
+        <div className="mr-4">
+            <Link>
+            <Logo width="100px" />
+            </Link>
+        </div>
+        <div className="ml-auto flex items-center">
+            <ul className="flex space-x-4">
+            {navItems.map((item) =>
+                item.active ? (
+                <li key={item.name}>
+                    <button
+                    onClick={() => navigate(item.slug)}
+                    className="text-text sm:px-4 py-2 duration-200 hover:bg-accent hover:text-background rounded-full"
+                    >
+                    {item.name}
+                    </button>
+                </li>
+                ) : null
+            )}
+            </ul>
+            {authStatus && (
+            <li className="list-none rounded-full text-primary hover:bg-accent hover:text-background">
+                <LogoutButton />
+            </li>
+            )}
+        </div>
+        </nav>
+    </Container>
+    </header>
     )
 }
 

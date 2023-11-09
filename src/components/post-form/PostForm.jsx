@@ -1,13 +1,11 @@
-import React, {useCallback, useEffect} from 'react'
+import {useCallback, useEffect} from 'react'
 import { useForm } from 'react-hook-form'
 import {Button, Input, Select, RTE} from '../index'
 import appwriteService from '../../appwrite/config'
 import { useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import authService from '../../appwrite/auth'
 
 function PostForm({post}) {
-
     const {register, handleSubmit, watch, setValue, control, getValues} = useForm({
         defaultValues: {
             title: post?.title || '',
@@ -18,11 +16,11 @@ function PostForm({post}) {
     })
 
     const navigate = useNavigate()
-    const userData = useSelector(state => state.auth.userData)
+    const userData = useSelector(state => state.userData)
 
     const submit = async (data) => {
         if (post) {
-            const file = data.images[0] ? await appwriteService.uploadFile(data.images[0]) : null
+            const file = data.featuredImage[0] ? await appwriteService.uploadFile(data.featuredImage[0]) : null
 
             if (file) {
                 await appwriteService.deleteFile(post.featuredImage)
@@ -37,14 +35,15 @@ function PostForm({post}) {
                 navigate(`/post/${dbPost.$id}`)
             }
         } else {
-            const file = data.images[0] ? await appwriteService.uploadFile(data.images[0]) : null
+            console.log(userData);
+            const file = data.featuredImage[0] ? await appwriteService.uploadFile(data.featuredImage[0]) : null
 
             if (file) {
                 data.featuredImage = file.$id
                 
                 const dbPost = await appwriteService.createPost({
                     ...data,
-                    userId: userData.$id
+                    userId: userData.userData.$id
                 })
 
                 if (dbPost) {
@@ -59,7 +58,6 @@ function PostForm({post}) {
             return value
             .trim()
             .toLowerCase()
-            .replace(/^[a-zA-Z\d\s]+/g, '-')
             .replace(/\s/g, '-')
         }
 
@@ -81,9 +79,9 @@ function PostForm({post}) {
     }, [watch, slugTransform, setValue])
 
     return (
-        <form onSubmit={handleSubmit(submit)}>
-            <div className='w-2/3 px-2'>
-                <Input 
+        <form onSubmit={handleSubmit(submit)} className='flex sm:flex-row flex-col'>
+            <div className='sm:w-2/3 px-2'>
+                <Input
                     label='Title: '
                     placeholder='Title'
                     className='mb-4'
@@ -100,7 +98,7 @@ function PostForm({post}) {
                 />
                 <RTE label="Content: " name="content" control={control} defaultValues={getValues("content")}/>
             </div>
-            <div className="w-1/3 px-2">
+            <div className="sm:w-1/3 px-2">
                 <Input 
                     label='Featured Image: '
                     type='file'
@@ -126,7 +124,7 @@ function PostForm({post}) {
                     className='mb-4'
                     {...register("status", {required: true})}
                 />
-                <Button type='submit' bgColor={post ? "bg-green-500": undefined} className='w-full'>
+                <Button type='submit' bgColor='bg-primary' className='w-full hover:bg-accent'>
                     {post ? "Update" : "Submit"}
                 </Button>
             </div>

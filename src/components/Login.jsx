@@ -79,8 +79,9 @@ function Login() {
                             })}
                         />
                         <Button 
+                            bgColor='bg-primary'
                             type='submit' 
-                            className='w-full'
+                            className='w-full hover:bg-text hover:text-background'
                         >
                             Login
                         </Button>
