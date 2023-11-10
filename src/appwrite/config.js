@@ -34,14 +34,14 @@ export class Service {
     }
 
     async updatePost(slug, {title,content, featuredImage, status}) {
+
         try {
-            return await this.databases.deleteDocument(
+            return await this.databases.updateDocument(
                 conf.appwriteDatabaseId,
                 conf.appwriteCollectionId,
                 slug,
                 {
                     title,
-                    slug,
                     content,
                     featuredImage,
                     status                }

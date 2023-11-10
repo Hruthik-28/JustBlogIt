@@ -11,7 +11,7 @@ function Post() {
     const navigate = useNavigate()
 
     const userData = useSelector(state => state.userData)
-    console.log(post);
+
     const isAuthor = post && userData ? post.userId === userData.userData.$id : false
 
     useEffect(() => {
@@ -44,7 +44,7 @@ function Post() {
                     />
 
                     {isAuthor && (
-                        <div className="absolute sm:right-6 sm:top-6 -bottom-7 right-4">
+                        <div className="absolute sm:right-6 sm:top-6 -bottom-9 right-4">
                             <Link to={`/edit-post/${post.$id}`}>
                                 <Button bgColor="bg-primary" className="mr-3 hover:scale-110 py-1">
                                     Edit
@@ -59,11 +59,11 @@ function Post() {
                         </div>
                     )}
                 </div>
-                <div className="w-full text-center sm:text-start">
-                    <h1 className="sm:text-5xl text-3xl font-bold py-4">{post.title}</h1>
+                <div className="w-full text-center sm:text-start sm:pt-2 pt-6">
+                    <h1 className="md:text-3xl text-2xl font-bold">{post.title}</h1>
                 </div>
-                <div className="browser-css sm:text-3xl text-lg">
-                    {parse(String(post.content))}
+                <div className="browser-css sm:text-xl text-xs">
+                    {parse(post.content)}
                 </div>
             </Container>
         </div>

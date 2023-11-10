@@ -13,14 +13,19 @@ function SignUp() {
     const [error, setError] = useState()
 
     const signUp = async(data) => {
-        console.log(data);
         setError("")
         try {
-            const session = await authService.createAccount({...data})
+            const session = await authService.createAccount(data)
+            // console.log(session);
             if (session) {
+                // console.log("session", session);
                 const userData = await authService.getCurrentUser()
-                if (userData) dispatch(storeLogin(userData))
-                navigate('/')
+                if (userData) {
+                    // console.log("userData", userData);
+                    dispatch(storeLogin(userData))
+                    navigate('/')
+                }
+                
             }
         } catch (error) {
             setError(error.message)
@@ -48,7 +53,7 @@ function SignUp() {
                 </p>
                 {
                     error && 
-                    <p className='text-red-600 mt-8 text-center'>
+                    <p className='text-red mt-8 text-center'>
                         {error}
                     </p>
                 }

@@ -13,17 +13,19 @@ export class AuthService {
     }
 
     async createAccount({email, password, name}){
-        console.log(email, password, name);
         try {
             const userAccount = await this.account.create(ID.unique(), email, password, name)
+            // console.log(userAccount);
             if (userAccount) {
                 //call Another method
                 await this.login({email, password})
+                return true
             }else {
-                return userAccount
+                console.log("Failed to create account please try again")
             }
         } catch (error) {
             console.log("Appwrite Service :: createAccount :: error", error);
+            return false
         }
     }
 
