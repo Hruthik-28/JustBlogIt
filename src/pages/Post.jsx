@@ -33,6 +33,8 @@ function Post() {
         })
     }
 
+    window.scrollTo(0, 0);
+
     return post ? (
         <div className="py-8">
             <Container >

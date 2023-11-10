@@ -36,16 +36,16 @@ function Header() {
     ]
 
     return (
-    <header className="py-3 shadow-lg bg-background sticky top-0 z-10">
+    <header className="sm:py-3 py-2 shadow-lg bg-background sticky top-0 z-10">
     <Container>
-        <nav className="flex flex-wrap items-center">
-        <div className="mr-4">
+        <nav className="flex flex-wrap items-center justify-center">
+        <div className="sm:mr-4 w-14">
             <Link>
             <Logo width="100px" />
             </Link>
         </div>
         <div className="ml-auto flex items-center">
-            <ul className="flex space-x-4">
+            <ul className="flex sm:space-x-4 space-x-3">
             {navItems.map((item) =>
                 item.active ? (
                 <li key={item.name}>
