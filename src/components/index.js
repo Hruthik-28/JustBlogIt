@@ -9,7 +9,7 @@ import Select from './Select.jsx'
 import Login from './Login.jsx'
 import SignUp from './SignUp.jsx'
 import PostForm from './post-form/PostForm.jsx'
-import RTE from '../components/Rte.jsx'
+import RTE from './RTE.jsx'
 import PostCard from './PostCard.jsx'
 import AuthLayout from './AuthLayout.jsx'
 
