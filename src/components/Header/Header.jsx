@@ -1,5 +1,5 @@
 import {Container, Logo, LogoutButton} from '../index'
-import { Link } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
@@ -44,24 +44,25 @@ function Header() {
             <Logo width="100px" />
             </Link>
         </div>
-        <div className="ml-auto flex items-center">
-            <ul className="flex sm:space-x-4 space-x-3">
+        <div className="ml-auto flex items-center justify-between">
+            <ul className="flex sm:space-x-7 space-x-3 md:mr-2">
             {navItems.map((item) =>
                 item.active ? (
                 <li key={item.name}>
-                    <button
-                    onClick={() => navigate(item.slug)}
-                    className="text-text sm:px-4 py-2 duration-200 hover:bg-accent hover:text-background rounded-full"
+                    <NavLink to={item.slug} 
+                        className={({isActive}) => `${isActive ? "text-primary": "text-text"} hover:text-primary `} 
+                        onClick={() => navigate(item.slug)}
                     >
-                    {item.name}
-                    </button>
+ 
+                        {item.name}
+                    </NavLink>
                 </li>
                 ) : null
             )}
             </ul>
             {authStatus && (
-            <li className="list-none rounded-full text-primary hover:bg-accent hover:text-background">
-                <LogoutButton />
+            <li className="list-none rounded-full text-text md:hover:bg-accent hover:text-background">
+                <LogoutButton/>
             </li>
             )}
         </div>

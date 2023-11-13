@@ -4,7 +4,7 @@ import {FaHeart} from 'react-icons/fa'
 
 function PostCard({post}) {
     const date = new Date(post.$createdAt).toLocaleDateString('en-US')
-console.log(post);
+
     return (
         <Link to={`/post/${post.$id}`}>
             <div className="max-w-md shadow-xl rounded-xl overflow-hidden h-full">

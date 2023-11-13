@@ -12,7 +12,7 @@ function Post() {
 
     const userData = useSelector(state => state.userData)
 
-    const isAuthor = post && userData ? post.userId === userData.userData.$id : false
+    const isAuthor = post && userData ? post.userId === userData.$id : false
 
     useEffect(() => {
         if (slug) {

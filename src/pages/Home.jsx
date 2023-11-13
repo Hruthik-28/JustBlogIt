@@ -61,7 +61,7 @@ function Home() {
                             <Link to='/add-post'>
                                 <Button 
                                 textColor='text-black'
-                                bgColor='bg-[#9ED5CB]' 
+                                bgColor='bg-primary' 
                                 className='text-2xl front-extrabold hover:bg-green-200 my-2'>
                                     ADD NOW
                                 </Button>   
