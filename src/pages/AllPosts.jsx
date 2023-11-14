@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import appwriteService from '../appwrite/config'
-import {Container, PostCard} from '../components/index'
+import {PostCard, Skeleton} from '../components/index'
 
 function AllPosts() {
     const [posts, setPosts] = useState([])
@@ -13,6 +13,14 @@ function AllPosts() {
         })
         .catch((error) => console.log("Failed to get all posts from appwrite", error))
     }, [])
+
+    if (posts.length == 0) {
+        return (
+            <div className='h-[70vh] flex justify-center items-center'>
+                <Skeleton />
+            </div>
+        )
+    }
 
     return (
         <div className='w-full py-8 md:pt-10'>

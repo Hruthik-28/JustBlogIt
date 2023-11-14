@@ -2,22 +2,24 @@ import {useCallback, useEffect} from 'react'
 import { useForm } from 'react-hook-form'
 import {Button, Input, Select, RTE} from '../index'
 import appwriteService from '../../appwrite/config'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
 function PostForm({post}) {
+    const {register, handleSubmit, watch, setValue, control, getValues} = useForm()
 
-    const {register, handleSubmit, watch, setValue, control, getValues} = useForm({
-        defaultValues: {
-            title: post?.title || '' ,
-            slug: post?.slug || '' ,
-            content: post?.content || '' ,
-            status: post?.status || 'active'
+    const params = useParams()
+    useEffect(() => {
+        if (post) {
+            setValue('title', post?.title || '');
+            setValue('slug', post?.slug || params.slug || '');
+            setValue('content', post?.content || '');
+            setValue('status', post?.status || 'active');
         }
-    })
+    }, [post, setValue, params])
 
     const navigate = useNavigate()
-    const userData = useSelector(state => state.userData)
+    const userData = useSelector(state => state.auth.userData)
 
     const submit = async (data) => {
 
@@ -28,7 +30,7 @@ function PostForm({post}) {
                 ...data,
                 featuredImage: file ? file.$id : undefined
             })
-            // console.log("dbPost", dbPost);
+
             if(file && dbPost) await appwriteService.deleteFile(post.featuredImage)
 
             if (dbPost) {
@@ -39,10 +41,10 @@ function PostForm({post}) {
 
             if (file) {
                 data.featuredImage = file.$id
-                
+
                 const dbPost = await appwriteService.createPost({
                     ...data,
-                    userId: userData.$id
+                    userId: userData.userData.$id
                 })
 
                 if (dbPost) {
@@ -95,7 +97,7 @@ function PostForm({post}) {
                         shouldValidate: true
                     }))}
                 />
-                <RTE label="Content: " name="content" control={control} defaultValues={getValues("content")}/>
+                <RTE label="Content: " name="content" control={control} defaultValue={getValues("content") || ""}/>
             </div>
             <div className="sm:w-1/3 px-2">
                 <Input 

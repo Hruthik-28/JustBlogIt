@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import appwriteService from "../appwrite/config";
-import { Button, Container } from "../components/index";
+import { Button, Container, Skeleton } from "../components/index";
 import parse from "html-react-parser";
 import { useSelector } from "react-redux";
 
@@ -10,7 +10,7 @@ function Post() {
     const {slug} = useParams()
     const navigate = useNavigate()
 
-    const userData = useSelector(state => state.userData)
+    const userData = useSelector(state => state.auth.userData)
 
     const isAuthor = post && userData ? post.userId === userData.$id : false
 
@@ -25,15 +25,23 @@ function Post() {
     }, [slug, navigate])
 
     const deletePost = () => {
-        appwriteService.deletePost(post.$id).then((status) => {
+        appwriteService.deletePost(post.$id).then(async(status) => {
             if (status) {
-                appwriteService.deleteFile(post.featuredImage)
+                await appwriteService.deleteFile(post.featuredImage)
                 navigate('/')
             }
         })
     }
 
     window.scrollTo(0, 0);
+
+    if (!post) {
+        return (
+            <div className='h-[70vh] flex justify-center items-center'>
+                <Skeleton />
+            </div>
+        )
+    }
 
     return post ? (
         <div className="py-8">

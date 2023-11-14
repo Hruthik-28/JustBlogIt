@@ -12,5 +12,5 @@ import PostForm from './post-form/PostForm.jsx'
 import RTE from './RealTimeEditor.jsx'
 import PostCard from './PostCard.jsx'
 import AuthLayout from './AuthLayout.jsx'
-
-export {Header, Footer, Logo, Container, LogoutButton, Input, Button, Select, Login, SignUp, PostForm, RTE, PostCard, AuthLayout}
+import Skeleton from './Skeleton.jsx'
+export {Header, Footer, Logo, Container, LogoutButton, Input, Button, Select, Login, SignUp, PostForm, RTE, PostCard, AuthLayout, Skeleton}

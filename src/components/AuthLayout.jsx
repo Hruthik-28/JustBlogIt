@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom'
 export default function Protected({children, authentication = true}) {
     const navigate = useNavigate()
     const [loader, setLoader] = useState()
-    const authStatus = useSelector(state => state.status)
+    const authStatus = useSelector(state => state.auth.status)
 
     useEffect(() => {
         // TODO MAKE IT MORE EASY 

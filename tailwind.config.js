@@ -3,17 +3,24 @@ export default {
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
-  ],  theme: {
-    extend: {},
+  ],
+  theme: {
+    extend: {
+      colors: {
+        'custom-color': '#ff00ff', // Add your custom color here
+      },
+      fontSize: {
+        '6xl': '4.75rem', // Add your custom font size here
+      },
+    },
     colors: {
       'text': '#130105',
       'background': '#fef6f7',
       'primary': '#11e8ba',
       'secondary': '#bdcafa',
       'accent': '#10daae',
-      'red': '#e7234a'
-     },
-     
+      'red': '#e7234a',
+    },
     fontSize: {
       sm: '0.750rem',
       base: '1rem',
@@ -34,4 +41,3 @@ export default {
   },
   plugins: [],
 }
-

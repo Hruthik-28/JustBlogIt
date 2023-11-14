@@ -23,6 +23,7 @@ export class Service {
                 {
                     title,
                     content,
+                    slug,
                     featuredImage,
                     status,
                     userId

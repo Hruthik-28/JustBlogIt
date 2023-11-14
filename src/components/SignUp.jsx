@@ -50,7 +50,7 @@ function SignUp() {
                 </p>
                 {
                     error && 
-                    <p className='text-red mt-8 text-center'>
+                    <p className='text-red font-bold mt-8 text-center '>
                         {error}
                     </p>
                 }
