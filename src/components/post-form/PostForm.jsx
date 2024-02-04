@@ -43,7 +43,7 @@ function PostForm({post}) {
                 data.featuredImage = file.$id
                 const dbPost = await appwriteService.createPost({
                     ...data,
-                    userId: userData.$id
+                    userId: userData.userData.$id
                 })
 
                 if (dbPost) {
